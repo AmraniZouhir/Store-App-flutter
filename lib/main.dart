@@ -20,14 +20,14 @@ class MyApp extends StatelessWidget {
           primaryColor: lightCardColor,
           backgroundColor: lightBackgondColor,
           appBarTheme: AppBarTheme(
-              iconTheme: IconThemeData(color: lightIconsColor),
-              backgroundColor: lightBackgondColor,
-              centerTitle: true,
-              titleTextStyle: TextStyle(
-                  color: lightTextColor,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold),
-              elevation: 0),
+            iconTheme: IconThemeData(color: lightIconsColor),
+            backgroundColor: lightBackgondColor,
+            centerTitle: true,
+            titleTextStyle: TextStyle(
+                color: lightTextColor,
+                fontSize: 22,
+                fontWeight: FontWeight.bold),
+          ),
           iconTheme: IconThemeData(
             color: lightIconsColor,
           ),
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           cardColor: lightCardColor,
           brightness: Brightness.light,
           colorScheme: ThemeData().colorScheme.copyWith(
-              secondary: lightCardColor, brightness: Brightness.light)),
+              secondary: lightIconsColor, brightness: Brightness.light)),
       home: const HomeScreen(),
     );
   }
