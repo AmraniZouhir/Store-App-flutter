@@ -1,11 +1,11 @@
 import 'package:card_swiper/card_swiper.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:storeapp/consts/global_colors.dart';
+import 'package:storeapp/screens/categorey_Screen.dart';
 import 'package:storeapp/screens/feeds_screen.dart';
+import 'package:storeapp/screens/user_screen.dart';
 import 'package:storeapp/widgets/appBar_icons.dart';
 import 'package:storeapp/widgets/feeds_widget.dart';
 import 'package:storeapp/widgets/sale_widget.dart';
@@ -45,10 +45,25 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           title: Text('Home'),
           leading: AppBarIcons(
-            fonction: () {},
+            fonction: () {
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.fade,
+                      child: CategoriesScreen()));
+            },
             icon: IconlyBold.category,
           ),
-          actions: [AppBarIcons(fonction: () {}, icon: IconlyBold.user3)],
+          actions: [
+            AppBarIcons(
+                fonction: () {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          type: PageTransitionType.fade, child: UserScreen()));
+                },
+                icon: IconlyBold.user3)
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
