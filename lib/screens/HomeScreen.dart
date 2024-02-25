@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: size.height * 0.25,
                         child: Swiper(
                           itemCount: 3,
-                          itemBuilder: (context, index) {
+                          itemBuilder: (BuildContext context, int index) {
                             return SaleWidget();
                           },
                           pagination: const SwiperPagination(
