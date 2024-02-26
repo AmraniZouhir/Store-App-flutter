@@ -14,7 +14,7 @@ class UserScreen extends StatelessWidget {
       body: ListView.builder(
         itemCount: 20,
         itemBuilder: (context, index) {
-          return UserWidget();
+          return const UserWidget();
         },
       ),
     );

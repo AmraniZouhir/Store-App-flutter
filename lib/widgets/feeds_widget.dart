@@ -6,8 +6,8 @@ import 'package:storeapp/consts/global_colors.dart';
 import 'package:storeapp/screens/product_details.dart';
 
 class FeedsWidget extends StatelessWidget {
-  const FeedsWidget({super.key});
-
+  const FeedsWidget({super.key, required this.titele, required this.imageUrl});
+  final String titele, imageUrl;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -61,7 +61,7 @@ class FeedsWidget extends StatelessWidget {
                     IconlyBold.danger,
                     color: Colors.red,
                   ),
-                  imageUrl: "https://i.ibb.co/vwB46Yq/shoes.png",
+                  imageUrl: imageUrl,
                   boxFit: BoxFit.fill,
                 ),
               ),
@@ -71,7 +71,7 @@ class FeedsWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  'Titel',
+                  titele,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
