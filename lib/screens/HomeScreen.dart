@@ -34,18 +34,18 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  List<productsModel> prodactsList = [];
+  // List<productsModel> prodactsList = [];
 
-  @override
-  void didChangeDependencies() {
-    getAllProdacts();
-    super.didChangeDependencies();
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   getAllProdacts();
+  //   super.didChangeDependencies();
+  // }
 
-  Future<void> getAllProdacts() async {
-    prodactsList = await ApiHandler.getAllProdact();
-    setState(() {});
-  }
+  // Future<void> getAllProdacts() async {
+  //   prodactsList = await ApiHandler.getAllProdact();
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -113,51 +113,63 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: size.height * 0.25,
-                        child: Swiper(
-                          itemCount: 3,
-                          itemBuilder: (BuildContext context, int index) {
-                            return SaleWidget();
-                          },
-                          pagination: const SwiperPagination(
-                              alignment: Alignment.bottomCenter,
-                              builder: DotSwiperPaginationBuilder(
-                                  color: Colors.white,
-                                  activeColor: Colors.red)),
-                        ),
+                  child: Column(children: [
+                    SizedBox(
+                      height: size.height * 0.25,
+                      child: Swiper(
+                        itemCount: 3,
+                        itemBuilder: (BuildContext context, int index) {
+                          return SaleWidget();
+                        },
+                        pagination: const SwiperPagination(
+                            alignment: Alignment.bottomCenter,
+                            builder: DotSwiperPaginationBuilder(
+                                color: Colors.white, activeColor: Colors.red)),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Row(
-                          children: [
-                            const Text(
-                              'Latest Products',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 18),
-                            ),
-                            Spacer(),
-                            AppBarIcons(
-                                fonction: () {
-                                  Navigator.push(
-                                      context,
-                                      PageTransition(
-                                          type: PageTransitionType.fade,
-                                          child: FeedsScreenAllProduct()));
-                                },
-                                icon: IconlyBold.arrowRight2)
-                          ],
-                        ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Row(
+                        children: [
+                          const Text(
+                            'Latest Products',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 18),
+                          ),
+                          Spacer(),
+                          AppBarIcons(
+                              fonction: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.fade,
+                                        child: FeedsScreenAllProduct()));
+                              },
+                              icon: IconlyBold.arrowRight2)
+                        ],
                       ),
-                      prodactsList.isEmpty
-                          ? Container()
-                          : FeedsGride(
-                              prodactsList: prodactsList,
-                            ),
-                    ],
-                  ),
+                    ),
+                    FutureBuilder<List<ProductsModel>>(
+                      future: ApiHandler.getAllProdact(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else if (snapshot.hasError) {
+                          Center(
+                            child: Text("An error occured ${snapshot.error}"),
+                          );
+                        } else if (snapshot.data == null) {
+                          Center(
+                            child: Text("No products has been added yet"),
+                          );
+                        }
+                        return FeedsGride(prodactsList: snapshot.data!);
+                      },
+                    )
+                  ]),
                 ),
               )
             ],

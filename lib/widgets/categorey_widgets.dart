@@ -2,7 +2,9 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:storeapp/Models/category_model.dart';
 import 'package:storeapp/consts/global_colors.dart';
+import 'package:provider/provider.dart';
 
 class CategoreyWidgets extends StatelessWidget {
   const CategoreyWidgets({super.key});
@@ -10,6 +12,9 @@ class CategoreyWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    final CategoryModel CategiriModeleProvaider =
+        Provider.of<CategoryModel>(context);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -32,7 +37,7 @@ class CategoreyWidgets extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Text(
-              "categ Name",
+              CategiriModeleProvaider.name,
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 24,

@@ -2,18 +2,22 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
+import 'package:storeapp/Models/prodacts_model.dart';
 import 'package:storeapp/consts/global_colors.dart';
 import 'package:storeapp/screens/product_details.dart';
 
 class FeedsWidget extends StatelessWidget {
-  const FeedsWidget({super.key, required this.titele, required this.imageUrl});
-  final String titele, imageUrl;
+  const FeedsWidget({super.key});
   @override
   Widget build(BuildContext context) {
+    final ProductsModel prodactModeleProvaider =
+        Provider.of<ProductsModel>(context);
+
     Size size = MediaQuery.of(context).size;
 
     return Padding(
-      padding: const EdgeInsets.all(2.0),
+      padding: EdgeInsets.all(2.0),
       child: Material(
         borderRadius: BorderRadius.circular(8.0),
         color: Theme.of(context).cardColor,
@@ -41,7 +45,7 @@ class FeedsWidget extends StatelessWidget {
                               TextStyle(color: Color.fromRGBO(33, 150, 243, 1)),
                           children: <TextSpan>[
                             TextSpan(
-                                text: '168.00',
+                                text: '${prodactModeleProvaider.price}',
                                 style: TextStyle(color: lightTextColor))
                           ]),
                     )),
@@ -61,7 +65,7 @@ class FeedsWidget extends StatelessWidget {
                     IconlyBold.danger,
                     color: Colors.red,
                   ),
-                  imageUrl: imageUrl,
+                  imageUrl: prodactModeleProvaider.image.toString(),
                   boxFit: BoxFit.fill,
                 ),
               ),
@@ -69,11 +73,13 @@ class FeedsWidget extends StatelessWidget {
                 height: 10,
               ),
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.only(
+                  left: 12,
+                ),
                 child: Text(
-                  titele,
+                  prodactModeleProvaider.title.toString(),
                   overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
+                  maxLines: 1,
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
                 ),
               ),

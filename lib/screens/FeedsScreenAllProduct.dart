@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:storeapp/Models/prodacts_model.dart';
 import 'package:storeapp/services/api_handler.dart';
 import 'package:storeapp/widgets/feeds_widget.dart';
@@ -12,7 +13,7 @@ class FeedsScreenAllProduct extends StatefulWidget {
 }
 
 class _FeedsScreenState extends State<FeedsScreenAllProduct> {
-  List<productsModel> prodactsList = [];
+  List<ProductsModel> prodactsList = [];
 
   @override
   void didChangeDependencies() {
@@ -33,7 +34,9 @@ class _FeedsScreenState extends State<FeedsScreenAllProduct> {
         title: Text('All Products'),
       ),
       body: prodactsList.isEmpty
-          ? Container()
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
           : GridView.builder(
               // shrinkWrap: true,
               // physics: NeverScrollableScrollPhysics(),
@@ -44,10 +47,8 @@ class _FeedsScreenState extends State<FeedsScreenAllProduct> {
                   mainAxisSpacing: 0.0,
                   childAspectRatio: 0.6),
               itemBuilder: (context, index) {
-                return FeedsWidget(
-                  titele: prodactsList[index].title.toString(),
-                  imageUrl: prodactsList[index].images![0],
-                );
+                return ChangeNotifierProvider.value(
+                    value: prodactsList[index], child: FeedsWidget());
               },
             ),
     );
