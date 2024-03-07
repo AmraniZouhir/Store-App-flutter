@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:storeapp/Models/category_model.dart';
-import 'package:storeapp/services/api_handler.dart';
 import 'package:storeapp/widgets/categorey_widgets.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({Key? key});
+  CategoriesScreen({Key? key});
+
+  final List<String> categories = [
+    "electronics",
+    "jewelery",
+    "men's clothing",
+    "women's clothing"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -14,39 +18,40 @@ class CategoriesScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text('Categories'),
       ),
-      body: FutureBuilder<List<CategoryModel>>(
-        future: ApiHandler.getAllCategories(), // Correct the method name
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text("An error occurred: ${snapshot.error}"),
-            );
-          } else if (snapshot.data == null || snapshot.data!.isEmpty) {
-            return Center(
-              child: Text("No categories available"),
-            );
+      body: // Inside CategoriesScreen build method
+          GridView.builder(
+        itemCount: categories.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 5,
+        ),
+        itemBuilder: (context, index) {
+          String imageUrl =
+              ''; // Set the appropriate image URL based on the category
+          switch (categories[index]) {
+            case "electronics":
+              imageUrl =
+                  'https://www.polytechnichub.com/wp-content/uploads/2017/04/Electronic.jpg';
+
+              break;
+            case "jewelery":
+              imageUrl =
+                  'https://previews.123rf.com/images/dream04/dream041710/dream04171000192/88337659-gold-jewelry-pendants-bracelets-rings-and-chains.jpg';
+              break;
+            case "men's clothing":
+              imageUrl =
+                  'https://previews.123rf.com/images/fabrikacrimea/fabrikacrimea1705/fabrikacrimea170501531/77326266-collage-of-men-s-clothing-isolated-white-background.jpg';
+              break;
+            case "women's clothing":
+              imageUrl =
+                  'https://previews.123rf.com/images/appolobay/appolobay1606/appolobay160600026/68689291-collection-collage-of-women-s-clothing-isolated-white-background.jpg';
+              break;
           }
 
-          return GridView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: snapshot.data!.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 0.0,
-              mainAxisSpacing: 0.0,
-              childAspectRatio: 1.2,
-            ),
-            itemBuilder: (context, index) {
-              return ChangeNotifierProvider.value(
-                value: snapshot.data![index],
-                child: CategoreyWidgets(),
-              );
-            },
+          return CategoreyWidgets(
+            categoryName: categories[index],
+            imageUrl: imageUrl,
           );
         },
       ),

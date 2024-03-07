@@ -1,50 +1,59 @@
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:storeapp/Models/category_model.dart';
 import 'package:storeapp/consts/global_colors.dart';
-import 'package:provider/provider.dart';
 
 class CategoreyWidgets extends StatelessWidget {
-  const CategoreyWidgets({super.key});
+  final String categoryName;
+  final String imageUrl; // Add imageUrl parameter
+
+  const CategoreyWidgets({
+    Key? key,
+    required this.categoryName,
+    required this.imageUrl,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    final CategoryModel CategiriModeleProvaider =
-        Provider.of<CategoryModel>(context);
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Stack(
+      child: Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: FancyShimmerImage(
-              height: size.height * 0.2,
-              width: size.height * 0.2,
-              errorWidget: Icon(
-                IconlyBold.danger,
-                color: Colors.red,
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: FancyShimmerImage(
+                height: size.height * 0.2,
+                width: size.height * 0.2,
+                errorWidget: Icon(
+                  IconlyBold.danger,
+                  color: Colors.red,
+                ),
+                imageUrl: imageUrl, // Use the provided imageUrl
+                boxFit: BoxFit.fill,
               ),
-              imageUrl:
-                  "https://media.istockphoto.com/id/1171169099/fr/photo/homme-avec-les-bras-crois%C3%A9s-disolement-sur-le-fond-gris.jpg?s=612x612&w=0&k=20&c=csQeB3utGtrGeb3WmdSxRYXaJvUy_xqlhbOIZxclcGA=",
-              boxFit: BoxFit.fill,
             ),
           ),
-          Align(
+          Container(
+            padding: EdgeInsets.all(8.0),
             alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: lightCardColor.withOpacity(0.5),
+              border: Border.all(color: Colors.black, width: 2.0),
+              borderRadius: BorderRadius.circular(12.0),
+            ),
             child: Text(
-              CategiriModeleProvaider.name,
+              categoryName,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  backgroundColor: lightCardColor.withOpacity(0.5)),
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -10,6 +10,7 @@ import 'package:storeapp/screens/FeedsScreenAllProduct.dart';
 import 'package:storeapp/screens/user_screen.dart';
 import 'package:storeapp/services/api_handler.dart';
 import 'package:storeapp/widgets/appBar_icons.dart';
+import 'package:storeapp/widgets/categorey_widgets.dart';
 import 'package:storeapp/widgets/sale_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -34,19 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  // List<productsModel> prodactsList = [];
-
-  // @override
-  // void didChangeDependencies() {
-  //   getAllProdacts();
-  //   super.didChangeDependencies();
-  // }
-
-  // Future<void> getAllProdacts() async {
-  //   prodactsList = await ApiHandler.getAllProdact();
-  //   setState(() {});
-  // }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -64,8 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                   context,
                   PageTransition(
-                      type: PageTransitionType.fade,
-                      child: CategoriesScreen()));
+                    type: PageTransitionType.fade,
+                    child: CategoriesScreen(),
+                  ));
             },
             icon: IconlyBold.category,
           ),
