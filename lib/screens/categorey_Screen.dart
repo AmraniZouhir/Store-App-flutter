@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:storeapp/screens/CategoreyProduct_screens.dart';
 import 'package:storeapp/widgets/categorey_widgets.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -6,7 +7,7 @@ class CategoriesScreen extends StatelessWidget {
 
   final List<String> categories = [
     "electronics",
-    "jewelery",
+    "jewelry",
     "men's clothing",
     "women's clothing"
   ];
@@ -18,8 +19,7 @@ class CategoriesScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text('Categories'),
       ),
-      body: // Inside CategoriesScreen build method
-          GridView.builder(
+      body: GridView.builder(
         itemCount: categories.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -27,15 +27,13 @@ class CategoriesScreen extends StatelessWidget {
           mainAxisSpacing: 5,
         ),
         itemBuilder: (context, index) {
-          String imageUrl =
-              ''; // Set the appropriate image URL based on the category
+          String imageUrl = '';
           switch (categories[index]) {
             case "electronics":
               imageUrl =
                   'https://www.polytechnichub.com/wp-content/uploads/2017/04/Electronic.jpg';
-
               break;
-            case "jewelery":
+            case "jewelry":
               imageUrl =
                   'https://previews.123rf.com/images/dream04/dream041710/dream04171000192/88337659-gold-jewelry-pendants-bracelets-rings-and-chains.jpg';
               break;
@@ -52,6 +50,16 @@ class CategoriesScreen extends StatelessWidget {
           return CategoreyWidgets(
             categoryName: categories[index],
             imageUrl: imageUrl,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CategoreyProduct_screens(
+                    selectedCategory: categories[index],
+                  ),
+                ),
+              );
+            },
           );
         },
       ),

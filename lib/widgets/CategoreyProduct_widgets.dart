@@ -7,8 +7,8 @@ import 'package:storeapp/Models/prodacts_model.dart';
 import 'package:storeapp/consts/global_colors.dart';
 import 'package:storeapp/screens/product_details.dart';
 
-class FeedsWidget extends StatelessWidget {
-  const FeedsWidget({super.key});
+class CategoreyProduct_widgets extends StatelessWidget {
+  const CategoreyProduct_widgets({super.key});
   @override
   Widget build(BuildContext context) {
     final ProductsModel prodactModeleProvaider =
