@@ -70,33 +70,30 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(5.0),
           child: Column(
             children: [
-              SizedBox(
-                height: 18,
-              ),
-              TextField(
-                controller: _textEditingController,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                    hintText: 'Search',
-                    filled: true,
-                    fillColor: Theme.of(context).cardColor,
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                            width: 1, color: Theme.of(context).cardColor)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                            width: 1,
-                            color: Theme.of(context).colorScheme.secondary)),
-                    suffixIcon: Icon(
-                      IconlyLight.search,
-                      color: lightIconsColor,
-                    )),
-              ),
+              // TextField(
+              //   controller: _textEditingController,
+              //   keyboardType: TextInputType.text,
+              //   decoration: InputDecoration(
+              //       hintText: 'Search',
+              //       filled: true,
+              //       fillColor: Theme.of(context).cardColor,
+              //       enabledBorder: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(10.0),
+              //           borderSide: BorderSide(
+              //               width: 1, color: Theme.of(context).cardColor)),
+              //       focusedBorder: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(10.0),
+              //           borderSide: BorderSide(
+              //               width: 1,
+              //               color: Theme.of(context).colorScheme.secondary)),
+              //       suffixIcon: Icon(
+              //         IconlyLight.search,
+              //         color: lightIconsColor,
+              //       )),
+              // ),
               SizedBox(
                 height: 20,
               ),

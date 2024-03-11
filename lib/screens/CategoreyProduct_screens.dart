@@ -1,41 +1,47 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:storeapp/Models/prodacts_model.dart';
 import 'package:storeapp/services/api_handler.dart';
 import 'package:storeapp/widgets/CategoreyProduct_widgets.dart';
 
-class CategoreyProduct_screens extends StatefulWidget {
+class CategoryProductScreens extends StatefulWidget {
   final String selectedCategory;
 
-  CategoreyProduct_screens({
-    super.key,
+  CategoryProductScreens({
+    Key? key,
     required this.selectedCategory,
-  });
+  }) : super(key: key);
 
   @override
-  State<CategoreyProduct_screens> createState() =>
-      _CategoreyProduct_screensState();
+  State<CategoryProductScreens> createState() => _CategoryProductScreensState();
 }
 
-class _CategoreyProduct_screensState extends State<CategoreyProduct_screens> {
-  List<ProductsModel> prodactsList = [];
+class _CategoryProductScreensState extends State<CategoryProductScreens> {
+  List<ProductsModel> allProducts = [];
+  List<ProductsModel> filteredProducts = [];
 
   @override
-  void didChangeDependencies() {
-    getAllProdacts();
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
+    getAllProducts();
   }
 
-  Future<void> getAllProdacts() async {
+  Future<void> getAllProducts() async {
     try {
-      prodactsList =
-          await ApiHandler.getProdactsByCategory(widget.selectedCategory);
-      setState(() {});
+      allProducts = await ApiHandler.getAllProdact();
+      filterProductsByCategory();
     } catch (error) {
-      print('Error fetching products: $error');
-      // Handle the error (show an error message, retry mechanism, etc.)
+      print('Error fetching all products: $error');
     }
+  }
+
+  void filterProductsByCategory() {
+    filteredProducts = allProducts
+        .where((product) =>
+            product.category!.toLowerCase() ==
+            widget.selectedCategory.toLowerCase())
+        .toList();
+    setState(() {});
   }
 
   @override
@@ -43,14 +49,14 @@ class _CategoreyProduct_screensState extends State<CategoreyProduct_screens> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: Text('Products Category'),
+        title: Text('Products - ${widget.selectedCategory}'),
       ),
-      body: prodactsList.isEmpty
+      body: filteredProducts.isEmpty
           ? Center(
               child: CircularProgressIndicator(),
             )
           : GridView.builder(
-              itemCount: prodactsList.length,
+              itemCount: filteredProducts.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 0.0,
@@ -59,8 +65,8 @@ class _CategoreyProduct_screensState extends State<CategoreyProduct_screens> {
               ),
               itemBuilder: (context, index) {
                 return ChangeNotifierProvider.value(
-                  value: prodactsList[index],
-                  child: CategoreyProduct_widgets(),
+                  value: filteredProducts[index],
+                  child: CategoryProductWidgets(),
                 );
               },
             ),

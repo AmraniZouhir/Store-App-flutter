@@ -47,14 +47,14 @@ class CategoriesScreen extends StatelessWidget {
               break;
           }
 
-          return CategoreyWidgets(
+          return CategoryWidgets(
             categoryName: categories[index],
             imageUrl: imageUrl,
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CategoreyProduct_screens(
+                  builder: (context) => CategoryProductScreens(
                     selectedCategory: categories[index],
                   ),
                 ),

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:storeapp/Models/prodacts_model.dart';
 import 'package:storeapp/Models/users_model.dart';
@@ -45,11 +44,14 @@ class ApiHandler {
     return ProductsModel.productsFromSnapshot(data);
   }
 
-  static Future<List<ProductsModel>> getProdactsByCategory(
+// Update your ApiHandler class
+  static Future<List<ProductsModel>> getProductsByCategory(
       String category) async {
     try {
-      var uri = Uri.https(BASE_URL, "/products", {"category": category});
+      var uri = Uri.https(
+          BASE_URL, "/products", {"category": category.toLowerCase()});
       var data = await getAllData(path: uri.path);
+      print("sssssssssssssssss$data");
       return ProductsModel.productsFromSnapshot(data);
     } catch (error) {
       print('Error fetching products: $error');
